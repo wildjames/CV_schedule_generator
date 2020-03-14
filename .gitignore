@@ -1,5 +1,6 @@
 *.json
 *.csv
+OUTPUT/*
 
 
 # Byte-compiled / optimized / DLL files
