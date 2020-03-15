@@ -72,7 +72,7 @@ def construct_plan(data, site, start_time, end_time, constraints=None, max_prior
             continue
 
         # Logic about if we want to use this target
-        writeme = ever_observable[0] and (priority < max_priority)
+        writeme = ever_observable[0] and (priority <= max_priority)
 
         # If true, add to the list
         if writeme:
@@ -102,6 +102,13 @@ if __name__ in "__main__":
     parser.add_argument(
         'site', help='Observing site. "tnt", or parsable by astropy'
     )
+    parser.add_argument(
+        '--priority',
+        help='Maximum priority to include. Default=1',
+        default=1,
+        type=int,
+    )
+
     args = parser.parse_args()
     site = args.site
 
@@ -114,5 +121,5 @@ if __name__ in "__main__":
 
     start, stop = Time.now(), Time.now()+1
 
-    construct_plan(data, site, start, stop)
+    construct_plan(data, site, start, stop, max_priority=args.priority)
 
