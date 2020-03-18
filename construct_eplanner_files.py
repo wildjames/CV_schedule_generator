@@ -108,11 +108,16 @@ if __name__ in "__main__":
         'site', help='Observing site. "tnt", or parsable by astropy'
     )
     parser.add_argument(
+        'date',
+        type=lambda s: Time.strptime(s, '%Y-%m-%d')
+    )
+    parser.add_argument(
         '--priority',
         help='Maximum priority to include. Default=1',
         default=1,
         type=int,
     )
+
 
     args = parser.parse_args()
     site = args.site
@@ -124,7 +129,10 @@ if __name__ in "__main__":
     else:
         site = Observer.at_site(site)
 
-    start, stop = Time.now(), Time.now()+1
+    start = args.date
+    stop = start+1
+
+    print(start)
 
     construct_plan(data, site, start, stop, max_priority=args.priority)
 
