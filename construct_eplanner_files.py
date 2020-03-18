@@ -108,8 +108,10 @@ if __name__ in "__main__":
         'site', help='Observing site. "tnt", or parsable by astropy'
     )
     parser.add_argument(
-        'date',
-        type=lambda s: Time.strptime(s, '%Y-%m-%d')
+        '--date',
+        type=lambda s: Time.strptime(s, '%Y-%m-%d'),
+        help="Date in format YYYY-MM-DD, please",
+        default=Time.now(),
     )
     parser.add_argument(
         '--priority',
@@ -132,7 +134,7 @@ if __name__ in "__main__":
     start = args.date
     stop = start+1
 
-    print(start)
+    print("Checking for visibility between {} and {}\n from {}\n\n".format(start, stop, site))
 
     construct_plan(data, site, start, stop, max_priority=args.priority)
 
