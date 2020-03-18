@@ -29,6 +29,7 @@ def construct_plan(data, site, start_time, end_time, constraints=None, max_prior
     # ENTRY = "{}\n{} {}\n{} linear {} {} {} {}\n\n"
     targets_list = ""
     targets_prg = ""
+    targets_notes = ""
     for name, row in data.iterrows():
         row['RA'], row['Dec'] = row['RA'].replace(" ", ":"), row['Dec'].replace(" ", ":")
 
@@ -84,15 +85,19 @@ def construct_plan(data, site, start_time, end_time, constraints=None, max_prior
                 T0, T0_err, P, P_err
             )
             prgline = "{}\n0.7 1.3 3 8\n\n".format(name)
+            notesline = '{}: "{}"\n\n\n'.format(name, row['Target Notes'])
 
             targets_list += line
             targets_prg += prgline
+            targets_notes += notesline
 
     # Write out files
     with open(os.path.join('OUTPUT', 'targets.lis'), 'w') as f:
         f.write(targets_list)
     with open(os.path.join('OUTPUT', 'targets.prg'), 'w') as f:
         f.write(targets_prg)
+    with open(os.path.join('OUTPUT', 'targets.txt'), 'w') as f:
+        f.write(targets_notes)
 
 
 if __name__ in "__main__":

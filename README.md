@@ -8,7 +8,7 @@ I want to do the following:
     - Calculate if that star is visible that night from that place
     - If it is, put it to one side
   - Construct a `targets.lis`, `targets.prg` file
-  - Construct a companion CSV file containing:
+  - Construct a companion CSV file, `targets.txt` containing:
     - Name
     - RA, Dec
     - g' magnitude
